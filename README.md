@@ -1,19 +1,67 @@
-# my_capstone
+# 캡스톤 "보이스맵"
+차량 네비게이션과 같은 경우엔 음성 서비스가 잘 되어있지만,
+카카오 맵등 대중교통의 경우 음성 서비스가 빈약한 것 같아 만들게됨
+"시각 정보 없이" 지도 서비스를 사용할 수 있게끔 하는 것이 목표
 
-A new Flutter project.
+### 사용할?것들
 
-## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+**Flutter** - 앱 만들거임(ios - 내가 안드로이드 없음)(아래는 사용할 플러그인들)
 
 
-asdf
+- [speech to text](https://pub.dev/packages/speech_to_text) - 말 입력 / 퍼미션 허용 해야함 안그럼 작동안함
+- [tts](https://pub.dev/packages/flutter_tts) - 경로 읽어주기
+- [Shake](https://pub.dev/packages/shake) 흔들어서 다음 문장이나 다음 경로(설명)으로 스킵
+- 그 외 다양한 움직임 - [더블 탭 이라거나](https://docs.flutter.dev/development/ui/advanced/gestures)
+- 햅틱 피드백?
+- 등등
+
+**Firebase** - 사실 아직 잘 몰?루(쓸일이 있을라나)
+
+**Kakao map api** - 대중교통 정보 가져올라 카는데 결국 네이버 or 카카오라 그냥 카카오?
+
+---
+
+### 간단한? 작동 과정
+
+1. 앱 실행
+2. 현위치 탐색 - 카카오맵 등 현위치 탐색
+3. 경로 입력(구두로)
+4. stt로 목적지 인식 후 경로 검색("000"이 맞습니까? 물어보고 진행)
+5. 경로 탐색 후 갈아타는 횟수를 알려줌, 아래로 스와이프해서 다음 탐색 경로로
+6. 경로가 맘에 들면 화면 두번 탭(아님 그냥 한번)
+7. 경로는 tts로 읽어줌(단계별로) - 예를들어
+   - "가장 가까운 버스정류장"에서 "타야할 버스"를 타고 "n 정류장" 뒤에 있는 "목적지 정류장"에 내림
+   - "목적지 정류장"에서 "지하철 n호선"을 갈아타면 "n 정거장" 후 "내릴 정거장" 도착
+   - ~도착할때까지 위 스텝 반복~
+   - 마지막으로 "00역" "n번 출구"로 나가면 "n"m 이내에 목적지 있음
+8. *(Gps 트랙킹하면서 알려주면 좋겠는데)* 일단은 안내를 한 스텝씩 해줌
+9. 왼쪽 오른쪽 스와이프해서 경로 읽어주는거 단계 움직임
+10. 흔들면 초기화(현위치 탐색2 로돌아감), 초기화 안내 문구(첫 화면으로 돌아갈까요?) 읽어주고 한번더 흔들면 초기화
+
+---
+
+### 캡커톤 스타트
+
+5.27 - 생각해보니 학교 축제 마지막날 (안가서 모름)
+
+5.28 - 플러터 플러그인 빌드할때 안되는 부분 해결 (Thanks to ㅇㅈㅇ)
+
+>*M1 이라서 그런가? 빌드 에러뜰때 팟 인스톨 roots/iOS 가서 해야함*
+>
+>*에뮬레이터 음성 인식 못해서 결국 내걸로 확인해야함*
+>
+>*플러터 앱 만들고 xcode로 한번 실행해줘야 내 서명들어감*
+
+플러그인들 사용할때
+
+```bash
+flutter pub add [플러그인 이름]
+```
+
+해주고 임포트 해줘야함
+
+> 개발자를 확인할 수 없기 때문에 'iproxy'을(를) 열 수 없습니다
+>
+> [설정가서 고쳐줘야함](https://www.androidhuman.com/2021-07-14-flutter_ios_iproxy)
+
+5.29 - 카카오맵 api 연결(중)
